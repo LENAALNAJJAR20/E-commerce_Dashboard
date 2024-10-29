@@ -6,12 +6,24 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+//    public function index(Request $request)
+//    {
+//        $query = $request->input('search');
+//        $users = User::when($query, function ($queryBuilder) use ($query) {
+//            return $queryBuilder->where('name', 'like', '%' . $query . '%');
+//        })->get();
+//        return view('users.index', compact('users'));
+//    }
     public function index(Request $request)
     {
-        $query = $request->input('search');
-        $users = User::when($query, function ($queryBuilder) use ($query) {
-            return $queryBuilder->where('name', 'like', '%' . $query . '%');
-        })->get();
+        $query = User::query();
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+        if ($request->filled('email')) {
+            $query->orWhere('email', 'like', '%' . $request->input('email') . '%');
+        }
+        $users = $query->paginate(10);
         return view('users.index', compact('users'));
     }
 

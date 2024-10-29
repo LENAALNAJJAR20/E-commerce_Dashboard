@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -27,23 +28,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//Route::middleware(['admin.auth'])->group(function () {
-//    Route::get('/', function () {
-//        return view('Components.layout');
-//    });
-
 Route::middleware(['admin.auth'])->group(function () {
-    Route::get('/', function () {
-        $todayUsersCount = Admin::count();
-        $todayAdminsCount = Admin::whereDate('created_at', Carbon::today())->count();
-        $totalUsersCount = User::count();
-        $totalMessage = Message::count();
-        $totalCategory = Category::count();
-        $totalProduct = Product::count();
-        $totalOrder = Order::count();
-        $totalPriceOrder = Order::sum('TotalPrice');
-        return view('index', compact('todayUsersCount', 'todayAdminsCount', 'totalUsersCount', 'totalCategory', 'totalProduct', 'totalMessage', 'totalOrder', 'totalPriceOrder'));
-    });
+    Route::get('/', [DashboardController::class, 'index']);
 
     Route::get('profile', [AdminController::class, 'profile'])->name('profile');
 
@@ -54,7 +40,7 @@ Route::middleware(['admin.auth'])->group(function () {
     Route::resource('categories', CategoryController::class)->except(['show']);
 
     Route::resource('products', ProductController::class)->except(['show']);
-
+    Route::get('/products/export', [ProductController::class, 'export'])->name('products.export');
     Route::get('/message', [MessageController::class, 'index'])->name('message');
     Route::get('/messages/reply/{id}', [MessageController::class, 'replyForm'])->name('reply');
     Route::post('/messages/reply/{id}', [MessageController::class, 'sendReply'])->name('messages.reply');
@@ -63,7 +49,8 @@ Route::middleware(['admin.auth'])->group(function () {
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
-    Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::resource('orders', OrderController::class)->except(['show']);
+    Route::get('/orders/export', [OrderController::class, 'export'])->name('orders.export');
 
     Route::get('/edit/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit');
     Route::patch('/update/{id}', [AdminController::class, 'update'])->name('admin.update');
