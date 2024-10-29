@@ -2,6 +2,7 @@
 @section('content')
     <section class="intro mt-5 mb-5">
         <h1 style="color: black">Products</h1>
+        <a href="{{ route('products.export') }}"  style="background-color:#fac973;color: black" class="btn mb-4">Export to Excel</a>
         <div class="bg-image">
             <div class="mask d-flex flex-column align-items-center">
                 <div class="container">
@@ -62,7 +63,7 @@
                                                               class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn  btn-sm" title="Delete">
+                                                            <button type="submit" class="btn btn-sm d-flex align-items-center" onclick="return confirm('Are you sure?')" title="Delete">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                      height="20" class="icon" w viewBox="0 0 448 512">
                                                                     <path fill="#000000"

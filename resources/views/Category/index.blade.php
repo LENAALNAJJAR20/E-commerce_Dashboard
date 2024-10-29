@@ -43,8 +43,8 @@
                                                               class="icon-button mx-2">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn  btn-sm"
-                                                                    title="Delete">
+                                                            <button type="submit" class="btn btn-sm d-flex align-items-center" onclick="return confirm('Are you sure?')" title="Delete">
+
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                      height="20" class="icon" w viewBox="0 0 448 512">
                                                                     <path fill="#000000"

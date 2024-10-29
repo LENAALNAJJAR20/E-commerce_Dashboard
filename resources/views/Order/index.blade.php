@@ -2,6 +2,7 @@
 @section('content')
     <section class="intro mt-5 mb-5">
         <h1 class="text-center  mb-4" style="color: black">Order Overview</h1>
+        <a href="{{ route('orders.export') }}" style="background-color:#fac973;color: black" class="btn mb-4">Export to Excel</a>
         <div class="bg-image">
             <div class="mask d-flex align-items-center">
                 <div class="container">
@@ -42,8 +43,5 @@
         </div>
     </section>
 @endsection
-
-
-
 
 

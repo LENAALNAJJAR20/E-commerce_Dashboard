@@ -41,7 +41,8 @@
                                     <h6 class="mb-0">Password </h6>
                                 </div>
                                 <div class="col-md-9 pe-5">
-                                    <input type="password" name="password" class="form-control form-control-lg"/>
+                                    <input type="password" name="password" class="form-control form-control-lg"
+                                           value="{{ old('password', $admin->password) }}"/>
                                     @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror

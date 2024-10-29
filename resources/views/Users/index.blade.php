@@ -8,17 +8,26 @@
                     <div class="row justify-content-center">
                         <div class="col-12">
                             <!-- Search Form -->
+{{--                            <form method="GET" action="{{ route('users.index') }}" class="mb-3">--}}
+{{--                                <div class="input-group">--}}
+{{--                                    <input type="text" name="search" class="form-control" placeholder="Search by name"--}}
+{{--                                           value="{{ request()->input('search') }}">--}}
+{{--                                    <button class="btn btn-outline-secondary" type="submit"--}}
+{{--                                            style="background-color:  #fdf8ee;color: black">Search--}}
+{{--                                    </button>--}}
+{{--                                    <a href="{{ route('users.index') }}" class="btn btn-outline-secondary"--}}
+{{--                                       style="background-color:  #fdf8ee;color: black">Reset</a>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
                             <form method="GET" action="{{ route('users.index') }}" class="mb-3">
                                 <div class="input-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search by name"
-                                           value="{{ request()->input('search') }}">
-                                    <button class="btn btn-outline-secondary" type="submit"
-                                            style="background-color:  #fdf8ee;color: black">Search
-                                    </button>
-                                    <a href="{{ route('users.index') }}" class="btn btn-outline-secondary"
-                                       style="background-color:  #fdf8ee;color: black">Reset</a>
+                                    <input type="text" name="name" class="form-control" placeholder="Search by name" value="{{ request()->input('name') }}">
+                                    <input type="text" name="email" class="form-control" placeholder="Search by email" value="{{ request()->input('email') }}">
+                                    <button class="btn btn-outline-secondary" type="submit" style="background-color:  #fdf8ee;color: black">Search</button>
+                                    <a href="{{ route('users.index') }}" class="btn btn-outline-secondary" style="background-color:  #fdf8ee;color: black">Reset</a>
                                 </div>
                             </form>
+
                             <div class="card">
                                 <div class="card-body p-0">
                                     <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
@@ -44,8 +53,7 @@
                                                               class="icon-button mx-2">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn  btn-sm"
-                                                                    title="Delete">
+                                                            <button type="submit" class="btn btn-sm d-flex align-items-center" onclick="return confirm('Are you sure?')" title="Delete">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                      height="20" class="icon" w viewBox="0 0 448 512">
                                                                     <path fill="#000000"

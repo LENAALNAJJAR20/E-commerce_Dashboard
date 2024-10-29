@@ -46,7 +46,7 @@
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar  navbar-light">
                     <a href="" class="navbar-brand mx-4 mb-3">
-                        <h3 class="" style="color: black;">
+                        <h3 class="" style="color:#ffd480">
                             Dashboard
                         </h3>
                     </a>
@@ -59,7 +59,7 @@
                             @if(Auth::guard('admin')->check())
                                 <h6 class="mb-0">{{ Auth::guard('admin')->user()->name }}</h6>
                             @endif
-                            <span>Admin</span>
+                            <span >Admin</span>
                         </div>
                     </div>
                     <div class="navbar-nav w-100">
@@ -109,10 +109,16 @@
                                 </a>
                             </div>
 
-                            <a href="{{route('order')}}" class="nav-item nav-link">
-                                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                                Order
-                            </a>
+                            <div id="focus" class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="fa fa-th" aria-hidden="true"></i>
+                                    Order
+                                </a>
+                                <div id="focus" class="dropdown-menu bg-transparent border-0">
+                                    <a href="{{route('orders.index')}}" class="dropdown-item">All Order</a>
+                                    <a href="{{route('orders.create')}}" class="dropdown-item">Add New Order</a>
+                                </div>
+                            </div>
                             <div class="nav-item dropdown">
                                 <a href="{{route('message')}}" class="nav-link nav-link">
                                     <i class="fa fa-comment" aria-hidden="true"></i>
