@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::with('product')->paginate(10);
+        $order = Order::with('product')->paginate(20);
         return view('Order.index', compact('order'));
     }
 
@@ -63,25 +63,29 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Order $order)
     {
-        //
+        $products = Product::all();
+        $users = User::all();
+        return view('Order.edit', compact('order', 'products','users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        $validate = request()->validate([
+            'product_id' => 'required|exists:products,id',
+            'user_id' => 'required|exists:users,id',
+            'delivery_status' => 'required',
+            'TotalPrice' => 'required',
+            'OrderDate' => 'required',
+        ]);
+        $order->update($validate);
+        return redirect()->route('orders.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Order::destroy($id);
+        return redirect()->route('orders.index');
     }
-
 }
